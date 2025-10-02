@@ -1,0 +1,14 @@
+{
+  "name": "multi-map-search",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Multi-Map Search MVP implementation with static frontend and Overpass proxy server.",
+  "main": "server/server.js",
+  "scripts": {
+    "dev": "node server/server.js",
+    "start": "node server/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT"
+}
