@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Multi-Map Search</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="branding">
+        <h1>Multi-Map Search</h1>
+        <p class="tagline">複数クエリを色分けして比較・発見・共有</p>
+      </div>
+      <button id="locate-btn" class="ghost-btn" type="button">現在地</button>
+    </header>
+
+    <main class="layout">
+      <section class="controls" aria-label="検索コントロール">
+        <form id="query-form" class="query-form">
+          <label for="query-input">検索キーワード（最大5件）</label>
+          <div class="query-input-row">
+            <input id="query-input" type="text" placeholder="例：ローソン、銭湯、スーパー" autocomplete="off" />
+            <button type="submit" class="primary-btn">追加</button>
+          </div>
+        </form>
+        <div id="query-chips" class="query-chips" aria-live="polite"></div>
+
+        <div class="filters">
+          <h2>フィルター</h2>
+          <label class="filter-item">
+            <input type="checkbox" id="filter-open-now" />
+            <span>営業中のみ</span>
+          </label>
+          <label class="filter-item">
+            <span>距離</span>
+            <div class="filter-input">
+              <input type="number" id="filter-radius" min="0" step="0.5" placeholder="km" />
+              <span class="suffix">km以内</span>
+            </div>
+          </label>
+          <div class="filter-actions">
+            <button id="apply-filters" class="secondary-btn" type="button">フィルター適用</button>
+            <button id="reset-filters" class="ghost-btn" type="button">リセット</button>
+          </div>
+        </div>
+
+        <div class="legend" aria-live="polite">
+          <h2>凡例</h2>
+          <div id="legend-items" class="legend-items"></div>
+        </div>
+      </section>
+
+      <section class="map-wrapper" aria-label="マップ">
+        <div id="map" class="map"></div>
+        <button id="search-area-btn" class="search-area-btn" type="button" disabled>このエリアで再検索</button>
+        <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+      </section>
+    </main>
+
+    <aside id="detail-panel" class="detail-panel" aria-live="polite" hidden>
+      <div class="detail-header">
+        <div id="detail-badges" class="detail-badges"></div>
+        <button id="detail-close" class="ghost-btn" type="button" aria-label="閉じる">✕</button>
+      </div>
+      <div class="detail-body">
+        <h2 id="detail-title"></h2>
+        <p id="detail-address" class="detail-address"></p>
+        <p id="detail-status" class="detail-status"></p>
+        <ul id="detail-meta" class="detail-meta"></ul>
+      </div>
+      <div class="detail-footer">
+        <div class="detail-nav" id="detail-nav" hidden>
+          <button id="detail-prev" type="button" class="ghost-btn">前へ</button>
+          <span id="detail-index"></span>
+          <button id="detail-next" type="button" class="ghost-btn">次へ</button>
+        </div>
+        <div class="detail-actions">
+          <a id="detail-open-google" class="primary-btn" target="_blank" rel="noreferrer">Googleマップで開く</a>
+          <a id="detail-open-apple" class="secondary-btn" target="_blank" rel="noreferrer">Appleマップで開く</a>
+        </div>
+      </div>
+    </aside>
+
+    <script src="https://unpkg.com/supercluster@7.1.5/dist/supercluster.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/opening_hours@3.13.0/opening_hours.js"></script>
+    <script src="/config.js"></script>
+    <script type="module" src="./src/app.js"></script>
+  </body>
+</html>
